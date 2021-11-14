@@ -49,6 +49,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+data class Message(val author: String, val body: String)
+
 @Composable
 private fun MyApp() {
     var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
@@ -164,5 +166,22 @@ fun DefaultPreview() {
 fun OnboardingPreview() {
     BasicsCodelabTheme {
         OnboardingScreen(onContinueClicked = {})
+    }
+}
+
+@Composable
+fun Conversation(messages: List<Message>) {
+    LazyColumn {
+        items(messages) { message ->
+            MessageCard(message)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewConversation() {
+    StudyComposeTheme {
+        Conversation(SampleData.conversationSample)
     }
 }
